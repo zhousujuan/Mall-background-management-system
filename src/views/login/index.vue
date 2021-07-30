@@ -1,11 +1,19 @@
 <template>
   <div class="login-container">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
+    <!-- 登录表单 -->
+    <el-form
+    ref="loginForm"
+    :model="loginForm"
+    :rules="loginRules"
+    class="login-form"
+    auto-complete="on"
+    label-position="left">
 
       <div class="title-container">
-        <h3 class="title">登录</h3>
+        <h3 class="title">登 录</h3>
       </div>
 
+      <!-- 用户名输入部分 -->
       <el-form-item prop="username">
         <span class="svg-container">
           <svg-icon icon-class="user" />
@@ -20,7 +28,7 @@
           auto-complete="on"
         />
       </el-form-item>
-
+      <!-- 密码输入部分 -->
       <el-form-item prop="password">
         <span class="svg-container">
           <svg-icon icon-class="password" />
@@ -41,11 +49,18 @@
         </span>
       </el-form-item>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
+      <el-button
+      :loading="loading"
+      type="primary"
+      style="width:100%;margin-bottom:30px;"
+      @click.native.prevent="handleLogin"
+      >Login
+      </el-button>
 
+      <!-- 下面的提示部分 -->
       <div class="tips">
         <span style="margin-right:20px;">username: admin</span>
-        <span> password: any</span>
+        <span> password: 111111</span>
       </div>
 
     </el-form>
@@ -60,14 +75,14 @@ export default {
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
+        callback(new Error('请输入正确的用户名'))
       } else {
         callback()
       }
     }
     const validatePassword = (rule, value, callback) => {
       if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
+        callback(new Error('密码不能少于6位数'))
       } else {
         callback()
       }
