@@ -3,7 +3,7 @@
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">Login Form</h3>
+        <h3 class="title">登录</h3>
       </div>
 
       <el-form-item prop="username">
@@ -129,7 +129,7 @@ export default {
 /* 修复input 背景不协调 和光标变色 */
 /* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
 
-$bg:#283443;
+$bg:#e6ebf1;
 $light_gray:#fff;
 $cursor: #fff;
 
@@ -141,6 +141,8 @@ $cursor: #fff;
 
 /* reset element-ui css */
 .login-container {
+  //添加登录界面背景图片
+  background-image:url('./image/bg_1.png');
   .el-input {
     display: inline-block;
     height: 47px;
