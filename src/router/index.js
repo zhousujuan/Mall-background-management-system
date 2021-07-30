@@ -80,8 +80,14 @@ export const constantRoutes = [
       {
         path: 'sku',
         name: 'Sku',
-        component: () => import('@/views/user/info'),
-        meta: { title: '信息管理' }
+        component: () => import('@/views/user/userInfo'),
+        meta: { title: '网站用户' }
+      },
+      {
+        path: 'sku',
+        name: 'Sku',
+        component: () => import('@/views/user/adminInfo'),
+        meta: { title: '后台管理员' }
       }
     ]
   },
