@@ -8,18 +8,20 @@ import Layout from '@/layout'
 
 
 export const constantRoutes = [
+  //登录
   {
     path: '/login',
     component: () => import('@/views/login/index'),
     hidden: true
   },
-
+  //404报错
   {
     path: '/404',
     component: () => import('@/views/404'),
     hidden: true
   },
 
+  //首页
   {
     path: '/',
     component: Layout,
@@ -28,10 +30,64 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: '首页', icon: 'dashboard' }
+      meta: { title: '首页', icon: 'el-icon-s-home' }
     }]
   },
+  //商品管理模块
+  {
+    path: '/shop',
+    component: Layout,
+    redirect: '/shop',
+    name: 'Shop',
+    meta: { title: '商品管理', icon: 'el-icon-s-shop' },
+    children: [
+      {
+        path: 'brand',
+        name: 'Brand ',
+        component: () => import('@/views/shop/brand'),
+        meta: { title: '品牌管理'}
+      },
+      {
+        path: 'sku',
+        name: 'Sku',
+        component: () => import('@/views/shop/sku'),
+        meta: { title: 'sku管理' }
+      },
+      {
+        path: 'spu',
+        name: 'Spu',
+        component: () => import('@/views/shop/spu'),
+        meta: { title: 'spu管理' }
+      }
+    ]
+  },
 
+  //用户管理模块
+  //商品管理模块
+  {
+    path: '/user',
+    component: Layout,
+    redirect: '/user',
+    name: 'User',
+    meta: { title: '用户管理', icon: 'el-icon-s-custom' },
+    children: [
+      {
+        path: 'brand',
+        name: 'Brand ',
+        component: () => import('@/views/user/role'),
+        meta: { title: '角色管理' }
+      },
+      {
+        path: 'sku',
+        name: 'Sku',
+        component: () => import('@/views/user/info'),
+        meta: { title: '信息管理' }
+      }
+    ]
+  },
+
+
+  //案例项
   {
     path: '/example',
     component: Layout,
@@ -54,6 +110,7 @@ export const constantRoutes = [
     ]
   },
 
+  //表单项
   {
     path: '/form',
     component: Layout,
@@ -67,6 +124,7 @@ export const constantRoutes = [
     ]
   },
 
+  //菜单项
   {
     path: '/nested',
     component: Layout,
@@ -126,6 +184,7 @@ export const constantRoutes = [
     ]
   },
 
+  //第三方链接
   {
     path: 'external-link',
     component: Layout,
