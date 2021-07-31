@@ -29,10 +29,15 @@ const mutations = {
 
 const actions = {
   // user login
+  /*
+   重写action函数-login
+    1. 将.then替换成async和await语法
+   */
   login({ commit }, userInfo) {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password }).then(response => {
+      login({ username: username.trim(), password: password })
+      .then(response => {
         const { data } = response
         commit('SET_TOKEN', data.token)
         setToken(data.token)
@@ -42,6 +47,26 @@ const actions = {
       })
     })
   },
+
+  /*这里放置的是修改之后的代码，有时间的话，来到这里多研究几遍
+  async login({ commit }, userInfo) {
+    const { username, password } = userInfo
+    try {
+      const response = await login({ username: username.trim(), password: password });
+      const { data } = response
+      // 将请求回来的token存入Vuex的state中(相当于存储于内存中)
+      commit('SET_TOKEN', data.token)
+      // 将请求回来的token存入cookie中(相当于存储于硬盘中)
+      // cookie相对localStorage的好处:每次发送请求会自动携带该token
+      setToken(data.token)
+    } catch (error) {
+      console.log('error')
+    }
+
+  },
+
+  */
+
 
   // get user info
   getInfo({ commit, state }) {
