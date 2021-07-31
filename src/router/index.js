@@ -42,6 +42,18 @@ export const constantRoutes = [
     meta: { title: '商品管理', icon: 'el-icon-s-shop' },
     children: [
       {
+        path: 'sort',
+        name: 'Sort ',
+        component: () => import('@/views/shop/sort'),
+        meta: { title: '分类管理'}
+      },
+      {
+        path: 'attr',
+        name: 'Attr ',
+        component: () => import('@/views/shop/attr'),
+        meta: { title: '属性管理'}
+      },
+      {
         path: 'brand',
         name: 'Brand ',
         component: () => import('@/views/shop/brand'),

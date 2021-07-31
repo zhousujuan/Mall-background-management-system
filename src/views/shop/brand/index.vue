@@ -92,6 +92,7 @@ export default {
       margin-top:20px ;
 
     }
+    // 底部样式部分
     .bottom{
       margin-top:20px ;
       text-align: center;
