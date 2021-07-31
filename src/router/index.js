@@ -132,61 +132,55 @@ export const constantRoutes = [
 
   //菜单项
   {
-    path: '/nested',
+    path: '/settings',
     component: Layout,
-    redirect: '/nested/menu1',
-    name: 'Nested',
+    redirect: '/settings/system',
+    name: 'Settings',
     meta: {
-      title: '菜单项',
-      icon: 'nested'
+      title: '设置',
+      icon: 'el-icon-s-tools'
     },
     children: [
       {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'Menu1',
-        meta: { title: '菜单1' },
+        path: 'systemSettings',
+        component: () => import('@/views/settings/system/index'), // Parent router-view
+        name: 'SystemSettings',
+        meta: { title: '系统设置' },
         children: [
           {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'Menu1-1',
-            meta: { title: '菜单1-1' }
+            path: 'webSettings',
+            component: () => import('@/views/settings/system/web'),
+            name: 'WebSettings',
+            meta: { title: '网站设置' },
           },
           {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'Menu1-2',
-            meta: { title: '菜单1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'Menu1-2-1',
-                meta: { title: '菜单1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'Menu1-2-2',
-                meta: { title: '菜单1-2-2' }
-              }
-            ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'Menu1-3',
-            meta: { title: '菜单1-3' }
+            path: 'emailServe',
+            component: () => import('@/views/settings/system/email'),
+            name: 'EmailServe',
+            meta: { title: '邮件服务' }
           }
         ]
       },
       {
-        path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
-        name: 'Menu2',
-        meta: { title: '菜单2' }
-      }
+        path: 'mySettings',
+        component: () => import('@/views/settings/mine/index'), // Parent router-view
+        name: 'MySettings',
+        meta: { title: '我的设置' },
+        children: [
+          {
+            path: 'myInfoSettings',
+            component: () => import('@/views/settings/mine/myInfo'),
+            name: 'MyInfoSettings',
+            meta: { title: '基本资料' },
+          },
+          {
+            path: 'rePsw',
+            component: () => import('@/views/settings/mine/rePsw'),
+            name: 'RePsw',
+            meta: { title: '修改密码' }
+          }
+        ]
+      },
     ]
   },
 

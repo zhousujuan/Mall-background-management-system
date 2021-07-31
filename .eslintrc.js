@@ -19,8 +19,9 @@ module.exports = {
       "multiline": {
         "max": 1,
         "allowFirstLine": false
-      }
+      },
     }],
+    "vue/comment-directive":"off",
     "vue/singleline-html-element-content-newline": "off",
     "vue/multiline-html-element-content-newline":"off",
     "vue/name-property-casing": ["error", "PascalCase"],
