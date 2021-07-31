@@ -20,25 +20,23 @@
     <!-- 中间表格品牌数据列表部分 -->
     <div class="middle">
       <el-table
-    :data="tableData"
     border
     style="width: 100%">
     <el-table-column
-      prop="date"
+      type="index"
+      align="center"
       label="序号"
       width="80">
     </el-table-column>
     <el-table-column
-      prop="brandName"
       label="品牌名称"
      >
     </el-table-column>
     <el-table-column
-      prop="brandLogo"
+
       label="品牌LOGO">
     </el-table-column>
     <el-table-column
-      prop="do"
       label="操作"
       width="200">
     </el-table-column>
@@ -47,14 +45,17 @@
 
     <!-- 底部分页器模块 -->
     <div class="bottom">
+      <!-- 
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+       -->
     <el-pagination
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
       :current-page="currentPage4"
-      :page-sizes="[100, 200, 300, 400]"
+      :page-sizes="[3, 6, 9, 12]"
       :page-size="100"
       layout=" prev, pager, next, jumper,->, sizes,total"
-      :total="400">
+      :total="100"
+      style="text-align:center">
     </el-pagination>
     </div>
   </div>
