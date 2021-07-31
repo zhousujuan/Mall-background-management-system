@@ -36,7 +36,18 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    before: require('./mock/mock-server.js')
+    //声明代理转发规则(proxy)
+    proxy:{
+      '/dev-api':{
+        target:"http://39.98.123.211",
+        pathRewrite:{
+          '^/dev-api':''
+        }
+      }
+    }
+    // 注释这里是为了禁用mock数据
+    //截获所有的ajax请求,并返回mockjs的数据
+    // before: require('./mock/mock-server.js')
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
