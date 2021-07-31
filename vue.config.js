@@ -27,6 +27,7 @@ module.exports = {
   publicPath: '/',
   outputDir: 'dist',
   assetsDir: 'static',
+  // 关闭esLint检测
   lintOnSave: false,
   productionSourceMap: false,
   devServer: {

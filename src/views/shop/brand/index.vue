@@ -35,8 +35,13 @@
      >
     </el-table-column>
     <el-table-column
-      prop="logoUrl"
       label="品牌LOGO">
+      <template slot-scope="{row}">
+        <img 
+        :src="row.logoUrl"
+        style="width: 100px; height: 80px"
+        alt="品牌LOGO"/>
+      </template>
     </el-table-column>
     <el-table-column
       label="操作"
@@ -63,91 +68,86 @@
 
 <script>
 export default {
-  name:'Brand',
-  data(){
-    return{
-      searchName:'',
-      searchList:[],
+  name: "Brand",
+  data() {
+    return {
+      searchName: "",
+      searchList: [],
 
-      brandList:[],
+      brandList: [],
 
-      currentPage:1,
-      limit:3,
-      total:15,
-
-    }
+      currentPage: 1,
+      limit: 3,
+      total: 15,
+    };
   },
-  mounted(){
-    this.getBrandList();  
+  mounted() {
+    this.getBrandList();
   },
   methods: {
     //获取当前页的品牌的数据
-    async getBrandList(currentPage){
+    async getBrandList(currentPage) {
       const {
         data: { total, records },
-      } = await this.$API.brand.getCurrentPageList(currentPage?currentPage:this.currentPage, this.limit);
+      } = await this.$API.brand.getCurrentPageList(
+        currentPage ? currentPage : this.currentPage,
+        this.limit
+      );
       //以上解构赋值相当于:const total = result.data.total;
 
-      this.total=total;
-      if(currentPage){
+      this.total = total;
+      if (currentPage) {
         this.currPage = currentPage;
       }
       this.brandList = records;
       // console.log(this.brandList)
     },
     // 通过当前事件,可以知道用户点击了哪个条数选择器项
-      handleSizeChange(val) {
-      
-      console.log('handleSizeChange',val)
-      this.limit=val;
+    handleSizeChange(val) {
+      console.log("handleSizeChange", val);
+      this.limit = val;
 
       //发送请求,获取对应页面的数据
-        this.getBrandList();   
-      },
-      // 通过当前事件,可以知道用户点击了哪个页数
-      handleCurrentChange(val) {  
-      console.log('handleCurrentChange',val)
-        this.currentPage=val;
-
-        //发送请求,获取对应页面的数据
-        this.getBrandList();
-      },
-      
-      
-      //获取搜索结果列表
-      getSearchList(val){
-        
-      }
-
+      this.getBrandList();
     },
-    
-}
+    // 通过当前事件,可以知道用户点击了哪个页数
+    handleCurrentChange(val) {
+      console.log("handleCurrentChange", val);
+      this.currentPage = val;
+
+      //发送请求,获取对应页面的数据
+      this.getBrandList();
+    },
+
+    //获取搜索结果列表
+    getSearchList(val) {},
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-  .brandContainer{
-    padding: 20px;
-    // 头部
-    .top{
+.brandContainer {
+  padding: 20px;
+  // 头部
+  .top {
+    display: flex;
+    justify-content: space-between;
+    .search {
       display: flex;
-      justify-content:space-between;
-      .search{
-        display: flex;
-        width:60;
-        .searchBrand{
-          margin-right:10px;
-        }
+      width: 60;
+      .searchBrand {
+        margin-right: 10px;
       }
     }
-    // 中间品牌数据列表部分
-    .middle{
-      margin-top:20px ;
-
-    }
-    // 底部样式部分
-    .bottom{
-      margin-top:20px ;
-      text-align: center;
-    }
   }
+  // 中间品牌数据列表部分
+  .middle {
+    margin-top: 20px;
+  }
+  // 底部样式部分
+  .bottom {
+    margin-top: 20px;
+    text-align: center;
+  }
+}
 </style>
