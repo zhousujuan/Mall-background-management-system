@@ -72,27 +72,27 @@ export const constantRoutes = [
     meta: { title: '用户管理', icon: 'el-icon-s-custom' },
     children: [
       {
-        path: 'brand',
-        name: 'Brand ',
+        path: 'role',
+        name: 'Role ',
         component: () => import('@/views/user/role'),
         meta: { title: '角色管理' }
       },
       {
-        path: 'sku',
-        name: 'Sku',
+        path: 'userInfo',
+        name: 'UserInfo',
         component: () => import('@/views/user/userInfo'),
         meta: { title: '网站用户' }
       },
       {
-        path: 'sku',
-        name: 'Sku',
+        path: 'adminInfo',
+        name: 'AdminInfo',
         component: () => import('@/views/user/adminInfo'),
         meta: { title: '后台管理员' }
       }
     ]
   },
 
-  //菜单项
+  //设置
   {
     path: '/settings',
     component: Layout,

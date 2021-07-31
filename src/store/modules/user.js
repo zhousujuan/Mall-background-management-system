@@ -33,22 +33,22 @@ const actions = {
    重写action函数-login
     1. 将.then替换成async和await语法
    */
-  login({ commit }, userInfo) {
-    const { username, password } = userInfo
-    return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password })
-      .then(response => {
-        const { data } = response
-        commit('SET_TOKEN', data.token)
-        setToken(data.token)
-        resolve()
-      }).catch(error => {
-        reject(error)
-      })
-    })
-  },
+  // login({ commit }, userInfo) {
+  //   const { username, password } = userInfo
+  //   return new Promise((resolve, reject) => {
+  //     login({ username: username.trim(), password: password })
+  //     .then(response => {
+  //       const { data } = response
+  //       commit('SET_TOKEN', data.token)
+  //       setToken(data.token)
+  //       resolve()
+  //     }).catch(error => {
+  //       reject(error)
+  //     })
+  //   })
+  // },
 
-  /*这里放置的是修改之后的代码，有时间的话，来到这里多研究几遍
+  //这里放置的是修改之后的代码，有时间的话，来到这里多研究几遍
   async login({ commit }, userInfo) {
     const { username, password } = userInfo
     try {
@@ -64,8 +64,6 @@ const actions = {
     }
 
   },
-
-  */
 
 
   // get user info
