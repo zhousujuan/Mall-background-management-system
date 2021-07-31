@@ -1,0 +1,1 @@
+export {default as brand} from './shop/brand'

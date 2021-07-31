@@ -11,6 +11,7 @@ import '@/styles/index.scss' // global css
 import App from './App'
 import store from './store'
 import router from './router'
+import * as API from '@/api';
 
 import '@/icons' // icon
 import '@/permission' // permission control
@@ -28,6 +29,8 @@ if (process.env.NODE_ENV === 'production') {
   mockXHR()
 }
 
+
+Vue.prototype.$API = API;
 // set ElementUI lang to EN
 Vue.use(ElementUI, { locale })
 // 如果想要中文版 element-ui，按如下方式声明

@@ -20,6 +20,7 @@
     <!-- 中间表格品牌数据列表部分 -->
     <div class="middle">
       <el-table
+      :data="brandList"
     border
     style="width: 100%">
     <el-table-column
@@ -30,10 +31,11 @@
     </el-table-column>
     <el-table-column
       label="品牌名称"
+      prop="tmName"
      >
     </el-table-column>
     <el-table-column
-
+      prop="logoUrl"
       label="品牌LOGO">
     </el-table-column>
     <el-table-column
@@ -45,16 +47,14 @@
 
     <!-- 底部分页器模块 -->
     <div class="bottom">
-      <!-- 
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-       -->
     <el-pagination
-      :current-page="currentPage4"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="currentPage"
       :page-sizes="[3, 6, 9, 12]"
       :page-size="100"
       layout=" prev, pager, next, jumper,->, sizes,total"
-      :total="100"
+      :total="total"
       style="text-align:center">
     </el-pagination>
     </div>
@@ -66,9 +66,61 @@ export default {
   name:'Brand',
   data(){
     return{
-      searchName:''
+      searchName:'',
+      searchList:[],
+
+      brandList:[],
+
+      currentPage:1,
+      limit:3,
+      total:15,
+
     }
-  }
+  },
+  mounted(){
+    this.getBrandList();  
+  },
+  methods: {
+    //获取当前页的品牌的数据
+    async getBrandList(currentPage){
+      const {
+        data: { total, records },
+      } = await this.$API.brand.getCurrentPageList(currentPage?currentPage:this.currentPage, this.limit);
+      //以上解构赋值相当于:const total = result.data.total;
+
+      this.total=total;
+      if(currentPage){
+        this.currPage = currentPage;
+      }
+      this.brandList = records;
+      // console.log(this.brandList)
+    },
+    // 通过当前事件,可以知道用户点击了哪个条数选择器项
+      handleSizeChange(val) {
+      
+      console.log('handleSizeChange',val)
+      this.limit=val;
+
+      //发送请求,获取对应页面的数据
+        this.getBrandList();   
+      },
+      // 通过当前事件,可以知道用户点击了哪个页数
+      handleCurrentChange(val) {  
+      console.log('handleCurrentChange',val)
+        this.currentPage=val;
+
+        //发送请求,获取对应页面的数据
+        this.getBrandList();
+      },
+      
+      
+      //获取搜索结果列表
+      getSearchList(val){
+        
+      }
+
+    },
+    
 }
 </script>
 
