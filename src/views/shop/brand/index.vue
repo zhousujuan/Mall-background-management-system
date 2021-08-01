@@ -37,15 +37,26 @@
     <el-table-column
       label="品牌LOGO">
       <template slot-scope="{row}">
-        <img 
+        <img
         :src="row.logoUrl"
-        style="width: 100px; height: 80px"
-        alt="品牌LOGO"/>
+        style="width:100px; height:80px"
+        alt=""/>
       </template>
     </el-table-column>
     <el-table-column
       label="操作"
       width="200">
+      <template slot-scope="scope">
+        <el-button
+          size="mini"
+          type="warning"
+          @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+        <el-button
+          size="mini"
+          type="danger"
+          @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+      </template>
+    </el-table-column>
     </el-table-column>
   </el-table>
     </div>
@@ -121,7 +132,49 @@ export default {
 
     //获取搜索结果列表
     getSearchList(val) {},
-  },
+
+    //编辑
+    handleEdit(index, row) {
+      console.log(index, row);
+    },
+    //删除操作
+    handleDelete(index, row) {
+      console.log(index, row);
+      this.$confirm(`此操作将永久删除该品牌:"${row.tmName}", 是否继续?`, '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then( async() => {
+          //点击确认
+          try{
+            //1.发送请求删除该品牌
+            await this.$API.brand.deleteBrand(row.id);
+
+            //2.弹窗提示用户删除成功
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            })
+
+          }catch(error){
+            //2.弹窗提示用户删除失败
+            this.$message({
+            type: 'info',
+            message: '删除失败!'
+          })
+          }
+
+           this.getBrandList();
+
+        }).catch(() => {
+          // 如果用户点击取消按钮,会执行.catch内部的代码
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+        });
+      }
+  }
 };
 </script>
 
