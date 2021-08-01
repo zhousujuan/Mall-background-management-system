@@ -163,8 +163,11 @@ export default {
             message: '删除失败!'
           })
           }
-
-           this.getBrandList();
+          //3.请求最新列表,并展示
+            //3.1如果当前页面删除了该数据,还有数据需要展示,就请求当前页面
+            //3.2如果当前页面删除了该数据,就没有数据了,就请求上一页
+            // console.log(1,this.page)
+            this.getBrandList(this.brandList.length>1?this.currentPage:this.currentPage-1);
 
         }).catch(() => {
           // 如果用户点击取消按钮,会执行.catch内部的代码
