@@ -126,19 +126,19 @@ export default {
 
       //分页器的
       currentPage: 1,
-    
+
       limit: 3,
       total: 15,
       //添加功能
       dialogFormVisible: true,
       //收集到的表单数据
-      tmForm:{
-        tmName:"",
-        logoUrl:""
+      tmForm: {
+        tmName: "",
+        logoUrl: "",
       },
-        formLabelWidth: '150px',
-        //上传的logo
-        imageUrl: ''
+      formLabelWidth: "150px",
+      //上传的logo
+      imageUrl: "",
     };
   },
   mounted() {
@@ -234,17 +234,17 @@ export default {
         });
     },
     //添加功能(确认)
-    async save(){
-      try{
-        console.log('添加功能测试')
+    async save() {
+      try {
+        console.log("添加功能测试");
         await this.$API.brand.updataBrand(this.tmForm);
         this.$message({
-            type: "success",
-            message: "保存成功",
-          });
-          //跳转到第一页
-          // this.getBrandList();
-          /*
+          type: "success",
+          message: "保存成功",
+        });
+        //跳转到第一页
+        // this.getBrandList();
+        /*
             按照实际情况来说，我们的操作是，添加完数据之后，要让我们的用户可以直观的看见
             所以，我们这里应该要求，跳转到最后一页
             让用户添加完数据之后，就可以马上看到
@@ -268,50 +268,56 @@ export default {
               // console.log(this.brandList)
             },
           */
-         this.goLastPage()   
-      }catch(error){
-        console.log(error)
+        this.goLastPage();
+
+        //清空表单
+        this.tmForm = {
+          tmName: "",
+          logoUrl: "",
+        };
+      } catch (error) {
+        console.log(error);
         this.$message({
-            type: "info",
-            message: "保存失败",
-          });
+          type: "info",
+          message: "保存失败",
+        });
       }
 
       //关闭当前的弹窗
-      this.dialogFormVisible = false
+      this.dialogFormVisible = false;
     },
     //取消
-    cancle(){
-      this.dialogFormVisible = false
+    cancle() {
+      this.dialogFormVisible = false;
       this.tmForm = {
-        tmName:'',
-        logoUrl:''
-      }
+        tmName: "",
+        logoUrl: "",
+      };
     },
 
     //上传logo
     handleAvatarSuccess(res, file) {
       //由于用户通过input标签选中图片之后,该图片就存储于浏览器内存中
       //以下代码是将内存中的图片,生成本地链接地址,用来展示
-        this.imageUrl = URL.createObjectURL(file.raw);
-        // this.tmForm.logoUrl=this.imageUrl;
-        // console.log(res.data)
-        this.tmForm.logoUrl=res.data;
-      },
+      this.imageUrl = URL.createObjectURL(file.raw);
+      // this.tmForm.logoUrl=this.imageUrl;
+      // console.log(res.data)
+      this.tmForm.logoUrl = res.data;
+    },
     //上传之前的检查
     beforeAvatarUpload(file) {
-        const isJPG = file.type === 'image/jpeg';
-        const isLt2M = file.size / 1024 / 1024 < 2;
-        if (!isJPG) {
-          this.$message.error('上传头像图片只能是 JPG 格式!');
-        }
-        if (!isLt2M) {
-          this.$message.error('上传头像图片大小不能超过 2MB!');
-        }
-        return isJPG && isLt2M;
+      const isJPG = file.type === "image/jpeg";
+      const isLt2M = file.size / 1024 / 1024 < 2;
+      if (!isJPG) {
+        this.$message.error("上传头像图片只能是 JPG 格式!");
+      }
+      if (!isLt2M) {
+        this.$message.error("上传头像图片大小不能超过 2MB!");
+      }
+      return isJPG && isLt2M;
     },
     //跳转到最后一页
-    async goLastPage(){
+    async goLastPage() {
       // const {
       //   data: { total, records },
       // } = await this.$API.brand.getCurrentPageList(
@@ -321,24 +327,22 @@ export default {
       // )
       //以上解构赋值相当于:const total = result.data.total;
 
-       const {
+      const {
         data: { total, records },
       } = await this.$API.brand.getCurrentPageList(
-        ((this.total)%this.limit)?
-        (this.currentPage=(this.total/this.limit))
-        :(this.currentPage=(this.total/this.limit)+1),
+        this.total % this.limit
+          ? (this.currentPage = this.total / this.limit)
+          : (this.currentPage = this.total / this.limit + 1),
         this.limit
-      )
+      );
 
       this.total = total;
-      
-     
-      
-      
+      console.log("currentPage", this.currentPage);
+      console.log("total", total);
+
       this.brandList = records;
       // console.log(this.brandList)
-      
-    }   
+    },
   },
 };
 </script>
@@ -369,7 +373,7 @@ export default {
   }
 
   //上传的图片样式
-  .avatar-uploader{
+  .avatar-uploader {
     border: 1px dashed #d9d9d9;
     border-radius: 6px;
     cursor: pointer;
@@ -378,7 +382,7 @@ export default {
     width: 178px;
     height: 178px;
     .el-upload:hover {
-      border-color: #409EFF;
+      border-color: #409eff;
     }
     .avatar-uploader-icon {
       font-size: 28px;
@@ -393,7 +397,6 @@ export default {
       height: 178px;
       display: block;
     }
-
   }
 }
 </style>
