@@ -38,25 +38,30 @@
       <el-button 
       type="primary" 
       icon="el-icon-plus"
-      style="margin-bottom: 20px;">添加属性</el-button>
+      style="margin-bottom: 20px;"
+      >添加属性</el-button>
 
       <el-table
-        :data="tableData"
+        :data="attrList"
         border
         style="width: 100%">
         <el-table-column
-          prop="date"
-          label="日期"
-          width="180">
+        type="index"
+          
+          label="序号"
+          width="80">
         </el-table-column>
         <el-table-column
           prop="name"
-          label="姓名"
+          label="属性名称"
           width="180">
         </el-table-column>
         <el-table-column
           prop="address"
-          label="地址">
+          label="属性值列表">
+        </el-table-column>
+        <el-table-column
+          label="操作">
         </el-table-column>
       </el-table>
 
@@ -90,24 +95,18 @@ export default {
         }],
         value: '',
         //数据表格
-         tableData: [{
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }]
+         attrList: []
       }
+    },
+    mounted(){
+      this. get()
+    },
+    methods:{
+      //获取属性列表
+      async get(){
+        const result=await this.$API.attr.getAttrInfoList(1,1,1)
+        console.log(result)
+      },
     }
 }
 </script>
