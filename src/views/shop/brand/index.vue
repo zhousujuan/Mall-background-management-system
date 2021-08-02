@@ -126,6 +126,7 @@ export default {
 
       //分页器的
       currentPage: 1,
+    
       limit: 3,
       total: 15,
       //添加功能
@@ -241,8 +242,33 @@ export default {
             type: "success",
             message: "保存成功",
           });
-          //到最后一页
-          this.getBrandList();
+          //跳转到第一页
+          // this.getBrandList();
+          /*
+            按照实际情况来说，我们的操作是，添加完数据之后，要让我们的用户可以直观的看见
+            所以，我们这里应该要求，跳转到最后一页
+            让用户添加完数据之后，就可以马上看到
+            这里的操作是跳转到最后一页
+
+            ====》
+            async getBrandList(currentPage) {
+              const {
+                data: { total, records },
+              } = await this.$API.brand.getCurrentPageList(
+                currentPage ? currentPage : this.currentPage,
+                this.limit
+              );
+              //以上解构赋值相当于:const total = result.data.total;
+
+              this.total = total;
+              if (currentPage) {
+                this.currPage = currentPage;
+              }
+              this.brandList = records;
+              // console.log(this.brandList)
+            },
+          */
+         this.goLastPage()   
       }catch(error){
         console.log(error)
         this.$message({
@@ -272,6 +298,7 @@ export default {
         // console.log(res.data)
         this.tmForm.logoUrl=res.data;
       },
+    //上传之前的检查
     beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';
         const isLt2M = file.size / 1024 / 1024 < 2;
@@ -283,6 +310,35 @@ export default {
         }
         return isJPG && isLt2M;
     },
+    //跳转到最后一页
+    async goLastPage(){
+      // const {
+      //   data: { total, records },
+      // } = await this.$API.brand.getCurrentPageList(
+      //   ((this.total+1)%this.limit)?(this.currentPage=
+      //   (this.total/this.limit)+1):(this.currentPage=(this.total/this.limit)),
+      //   this.limit
+      // )
+      //以上解构赋值相当于:const total = result.data.total;
+
+       const {
+        data: { total, records },
+      } = await this.$API.brand.getCurrentPageList(
+        ((this.total)%this.limit)?
+        (this.currentPage=(this.total/this.limit))
+        :(this.currentPage=(this.total/this.limit)+1),
+        this.limit
+      )
+
+      this.total = total;
+      
+     
+      
+      
+      this.brandList = records;
+      // console.log(this.brandList)
+      
+    }   
   },
 };
 </script>
