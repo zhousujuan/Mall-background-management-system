@@ -16,34 +16,34 @@
       <div class="addBrand">
         <el-button type="primary" icon="el-icon-plus" @click="dialogFormVisible = true">添加</el-button>
         <el-dialog title="添加品牌" :visible.sync="dialogFormVisible">
-          <el-form :model="form">
+          <el-form :model="tmForm">
             <el-form-item label="品牌名称：" :label-width="formLabelWidth">
-              <el-input 
-              v-model="form.brandName" 
+              <el-input
+              v-model="tmForm.tmName"
               autocomplete="off"
               placeholder="请输入品牌名称"></el-input>
             </el-form-item>
-            <el-form-item 
-            label="品牌LOGO：" 
+            <el-form-item
+            label="品牌LOGO："
             :label-width="formLabelWidth">
               <el-upload
                 class="avatar-uploader"
-                action="https://jsonplaceholder.typicode.com/posts/"
+                action="/dev-api/admin/product/fileUpload"
                 :show-file-list="false"
                 :on-success="handleAvatarSuccess"
                 :before-upload="beforeAvatarUpload">
-                <img 
-                v-if="imageUrl" 
-                :src="imageUrl" 
+                <img
+                v-if="imageUrl"
+                :src="imageUrl"
                 class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
               </el-upload>
             </el-form-item>
           </el-form>
           <div slot="footer" class="dialog-footer">
-            <el-button 
+            <el-button
             @click="cancle">取 消</el-button>
-            <el-button 
+            <el-button
             type="primary"
              @click="save">确 定</el-button>
           </div>
@@ -69,12 +69,14 @@
     </el-table-column>
     <el-table-column
       label="品牌LOGO">
+
       <template slot-scope="{row}">
         <img
         :src="row.logoUrl"
         style="width:100px; height:80px"
         alt=""/>
       </template>
+
     </el-table-column>
     <el-table-column
       label="操作"
@@ -129,10 +131,10 @@ export default {
       //添加功能
       dialogFormVisible: true,
       //收集到的表单数据
-      form: {
-          brandName:'',
-          logoUrl:''
-        },
+      tmForm:{
+        tmName:"",
+        logoUrl:""
+      },
         formLabelWidth: '150px',
         //上传的logo
         imageUrl: ''
@@ -231,15 +233,32 @@ export default {
         });
     },
     //添加功能(确认)
-    save(){
+    async save(){
+      try{
+        console.log('添加功能测试')
+        await this.$API.brand.updataBrand(this.tmForm);
+        this.$message({
+            type: "success",
+            message: "保存成功",
+          });
+          //到最后一页
+          this.getBrandList();
+      }catch(error){
+        console.log(error)
+        this.$message({
+            type: "info",
+            message: "保存失败",
+          });
+      }
+
+      //关闭当前的弹窗
       this.dialogFormVisible = false
-      
     },
     //取消
     cancle(){
       this.dialogFormVisible = false
-      this.form = {
-        brandName:'',
+      this.tmForm = {
+        tmName:'',
         logoUrl:''
       }
     },
@@ -247,7 +266,7 @@ export default {
     //上传logo
     handleAvatarSuccess(res, file) {
         this.imageUrl = URL.createObjectURL(file.raw);
-        this.form.logoUrl=this.imageUrl;
+        this.tmForm.logoUrl=this.imageUrl;
       },
     beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';
@@ -260,7 +279,6 @@ export default {
         }
         return isJPG && isLt2M;
     },
-
   },
 };
 </script>
@@ -316,6 +334,6 @@ export default {
       display: block;
     }
 
-  }  
+  }
 }
 </style>
