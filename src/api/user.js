@@ -1,5 +1,6 @@
 import request from '@/utils/request'
 
+//登录
 export function login(data) {
   return request({
     url: '/admin/acl/index/login',
@@ -7,7 +8,7 @@ export function login(data) {
     data
   })
 }
-
+//获取用户基本信息
 export function getInfo(token) {
   return request({
     url: '/admin/acl/index/info',
@@ -19,7 +20,7 @@ export function getInfo(token) {
      }
   })
 }
-
+//登出
 export function logout() {
   return request({
     url: '/admin/acl/index/logout',

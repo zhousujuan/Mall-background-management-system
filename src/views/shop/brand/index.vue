@@ -18,23 +18,34 @@
         <el-dialog title="添加品牌" :visible.sync="dialogFormVisible">
           <el-form :model="form">
             <el-form-item label="品牌名称：" :label-width="formLabelWidth">
-              <el-input v-model="form.name" autocomplete="off"></el-input>
+              <el-input 
+              v-model="form.brandName" 
+              autocomplete="off"
+              placeholder="请输入品牌名称"></el-input>
             </el-form-item>
-            <el-form-item label="品牌LOGO：" :label-width="formLabelWidth">
+            <el-form-item 
+            label="品牌LOGO：" 
+            :label-width="formLabelWidth">
               <el-upload
                 class="avatar-uploader"
                 action="https://jsonplaceholder.typicode.com/posts/"
                 :show-file-list="false"
                 :on-success="handleAvatarSuccess"
                 :before-upload="beforeAvatarUpload">
-                <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                <img 
+                v-if="imageUrl" 
+                :src="imageUrl" 
+                class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
               </el-upload>
             </el-form-item>
           </el-form>
           <div slot="footer" class="dialog-footer">
-            <el-button @click="dialogFormVisible = false">取 消</el-button>
-            <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+            <el-button 
+            @click="cancle">取 消</el-button>
+            <el-button 
+            type="primary"
+             @click="save">确 定</el-button>
           </div>
         </el-dialog>
       </div>
@@ -117,15 +128,10 @@ export default {
       total: 15,
       //添加功能
       dialogFormVisible: true,
+      //收集到的表单数据
       form: {
-          name: '',
-          region: '',
-          date1: '',
-          date2: '',
-          delivery: false,
-          type: [],
-          resource: '',
-          desc: ''
+          brandName:'',
+          logoUrl:''
         },
         formLabelWidth: '150px',
         //上传的logo
@@ -224,15 +230,28 @@ export default {
           });
         });
     },
+    //添加功能(确认)
+    save(){
+      this.dialogFormVisible = false
+      
+    },
+    //取消
+    cancle(){
+      this.dialogFormVisible = false
+      this.form = {
+        brandName:'',
+        logoUrl:''
+      }
+    },
 
     //上传logo
     handleAvatarSuccess(res, file) {
         this.imageUrl = URL.createObjectURL(file.raw);
+        this.form.logoUrl=this.imageUrl;
       },
-      beforeAvatarUpload(file) {
+    beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';
         const isLt2M = file.size / 1024 / 1024 < 2;
-
         if (!isJPG) {
           this.$message.error('上传头像图片只能是 JPG 格式!');
         }
@@ -240,7 +259,8 @@ export default {
           this.$message.error('上传头像图片大小不能超过 2MB!');
         }
         return isJPG && isLt2M;
-      }
+    },
+
   },
 };
 </script>
