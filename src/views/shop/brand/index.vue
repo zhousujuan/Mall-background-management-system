@@ -265,8 +265,12 @@ export default {
 
     //上传logo
     handleAvatarSuccess(res, file) {
+      //由于用户通过input标签选中图片之后,该图片就存储于浏览器内存中
+      //以下代码是将内存中的图片,生成本地链接地址,用来展示
         this.imageUrl = URL.createObjectURL(file.raw);
-        this.tmForm.logoUrl=this.imageUrl;
+        // this.tmForm.logoUrl=this.imageUrl;
+        // console.log(res.data)
+        this.tmForm.logoUrl=res.data;
       },
     beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';
