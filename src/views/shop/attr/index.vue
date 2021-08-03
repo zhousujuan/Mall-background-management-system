@@ -104,7 +104,7 @@ export default {
     methods:{
       //获取属性列表
       async get(){
-        const result=await this.$API.attr.getAttrInfoList(1,1,1)
+        const result=await this.$API.attr.getCategory1()
         console.log(result)
       },
     }

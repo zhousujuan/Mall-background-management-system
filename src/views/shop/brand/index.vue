@@ -268,7 +268,21 @@ export default {
               // console.log(this.brandList)
             },
           */
-        this.goLastPage();
+        // this.goLastPage();
+        this.total+=1;
+        console.log('当前数据总数：',this.total)
+        //计算最后一页的数值
+        //方法1：
+        // if(this.total% this.limit){
+        //   this.currPage=Number(this.total/this.limit)+1
+        // }else{
+        //   this.currentPage=Number(this.total/this.limit)
+        // }
+        // console.log('当前的page：',this.currentPage)
+
+        //方法2：
+        this.currentPage=Math.ceil(this.total/this.limit)
+        this.getBrandList();
 
         //清空表单
         this.tmForm = {
@@ -315,33 +329,6 @@ export default {
         this.$message.error("上传头像图片大小不能超过 2MB!");
       }
       return isJPG && isLt2M;
-    },
-    //跳转到最后一页
-    async goLastPage() {
-      // const {
-      //   data: { total, records },
-      // } = await this.$API.brand.getCurrentPageList(
-      //   ((this.total+1)%this.limit)?(this.currentPage=
-      //   (this.total/this.limit)+1):(this.currentPage=(this.total/this.limit)),
-      //   this.limit
-      // )
-      //以上解构赋值相当于:const total = result.data.total;
-
-      const {
-        data: { total, records },
-      } = await this.$API.brand.getCurrentPageList(
-        this.total % this.limit
-          ? (this.currentPage = this.total / this.limit)
-          : (this.currentPage = this.total / this.limit + 1),
-        this.limit
-      );
-
-      this.total = total;
-      console.log("currentPage", this.currentPage);
-      console.log("total", total);
-
-      this.brandList = records;
-      // console.log(this.brandList)
     },
   },
 };
