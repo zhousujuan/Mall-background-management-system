@@ -3,7 +3,7 @@ import request from '@/utils/request';
 export default{
 // GET /admin/product/get/category1/{id}
 // 获取一级分类
-  getCategory1_list(id){
+  getCategory1(id){
     return request.get(`/admin/product/get/category1/${id}`)
   },
 
@@ -28,12 +28,21 @@ getCategory1(){
 
 // GET /admin/product/getCategory2/{category1Id}
 // getCategory2
+getCategory2(){
+  return request.get('/admin/product/getCategory2')
+},
 
 // GET /admin/product/getCategory3/{category2Id}
 // getCategory3
+getCategory3(){
+  return request.get('/admin/product/getCategory3')
+},
 
 // POST /admin/product/inner/findBaseCategory3ByCategory3IdList
 // findBaseCategory3ByCategory3IdList
+findBaseCategory3ByCategory3IdList(){
+  return request.post('/admin/product/inner/findBaseCategory3ByCategory3IdList')
+},
 
 // DELETE /admin/product/removeCategory1/{id}
 // 删除一级分类
