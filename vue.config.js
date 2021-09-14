@@ -28,7 +28,8 @@ module.exports = {
   outputDir: 'dist',
   assetsDir: 'static',
   // 关闭esLint检测
-  lintOnSave: false,
+  // lintOnSave: false,
+  lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
   devServer: {
     port: port,

@@ -21,21 +21,23 @@ getCategory3(id){
 
 // GET /admin/product/getCategory1
 // getCategory1
-getCategory1(){
+//获取一级分类列表
+getCategory1List(){
   return request.get('/admin/product/getCategory1')
 },
 
-
 // GET /admin/product/getCategory2/{category1Id}
 // getCategory2
-getCategory2(){
-  return request.get('/admin/product/getCategory2')
+//获取二级分类列表
+getCategory2List(Category1Id){
+  return request.get(`/admin/product/getCategory2/${Category1Id}`)
 },
 
 // GET /admin/product/getCategory3/{category2Id}
 // getCategory3
-getCategory3(){
-  return request.get('/admin/product/getCategory3')
+//获取三级分类列表
+getCategory3List(category2Id){
+  return request.get(`/admin/product/getCategory3/${category2Id}`)
 },
 
 // POST /admin/product/inner/findBaseCategory3ByCategory3IdList

@@ -13,6 +13,7 @@ import store from './store'
 import router from './router'
 import * as API from '@/api';
 
+
 import '@/icons' // icon
 import '@/permission' // permission control
 
@@ -36,7 +37,7 @@ Vue.use(ElementUI, { locale })
 // 如果想要中文版 element-ui，按如下方式声明
 // Vue.use(ElementUI)
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false//阻止vue 在启动时生成生产提示
 
 new Vue({
   el: '#app',
